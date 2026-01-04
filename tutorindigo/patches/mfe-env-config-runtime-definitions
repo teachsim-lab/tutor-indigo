@@ -108,36 +108,10 @@ const ThemedLogo = () => {
     <>
       <style>
         {`
-          .header-logo {
-            margin: 0;
-          }
-
-          .header-logo a {
-            margin: 15px 0 15px 35px;
-            height: auto;
-            display: inline-block;
-          }
-
-          @media (min-width: 992px) {
-            .header-logo a {
-              margin: 5px 0 0;
-            }
-          }
-
-          .header-logo .logo {
-            height: 50px;
-            margin: 0;
-            display: block;
-          }
-
-          .header-logo .course-header {
-            display: none;
-          }
-
           .themed-logo {
-            height: 50px;
-            width: auto;
-            background: no-repeat center / contain url("${BASE_URL}/static/indigo/images/logo.png");
+            width: 120px;
+            height: 55px;
+            background: no-repeat center/contain url("${BASE_URL}/static/indigo/images/logo.png");
           }
 
           body.indigo-dark-theme .themed-logo {
@@ -145,16 +119,9 @@ const ThemedLogo = () => {
           }
         `}
       </style>
-
-      <div className="header-logo">
-        <a href={`${BASE_URL}/dashboard`} className="logo" title="Logo">
-          <div
-            className="themed-logo"
-            role="img"
-            aria-label="Teach SIM logo"
-          />
-        </a>
-      </div>
+      <a href={`${BASE_URL}/dashboard`} className="logo" title="Logo">
+        <div class="themed-logo" role="img" aria-label="Acme logo"></div>
+      </a>
     </>
   );
 };
