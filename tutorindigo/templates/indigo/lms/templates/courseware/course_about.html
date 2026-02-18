@@ -90,16 +90,16 @@ from openedx.core.lib.courses import course_image_url
             <a href="${course_target}">
           %endif
           %if show_courseware_link:
-            <strong>${_("View Course")}</strong>
+            <strong>${_("View Module")}</strong>
             </a>
           %endif
 
         % elif is_course_full:
           <span class="register disabled">
-            ${_("Course is full")}
+            ${_("Module is full")}
           </span>
         % elif invitation_only and not can_enroll:
-          <span class="register disabled">${_("Enrollment in this course is by invitation only")}</span>
+          <span class="register disabled">${_("Enrollment in this module is by invitation only")}</span>
         ## Shib courses need the enrollment button to be displayed even when can_enroll is False,
         ## because AnonymousUsers cause can_enroll for shib courses to be False, but we need them to be able to click
         ## so that they can register and become a real user that can enroll.
@@ -108,7 +108,7 @@ from openedx.core.lib.courses import course_image_url
         %elif allow_anonymous:
           %if show_courseware_link:
             <a href="${course_target}">
-            <strong>${_("View Course")}</strong>
+            <strong>${_("View Module")}</strong>
             </a>
           %endif
         %else:
@@ -152,14 +152,14 @@ from openedx.core.lib.courses import course_image_url
 
     <div class="course-sidebar">
       <div class="course-summary">
-        <h2>Course Summary</h2>
+        <h2>${_("Module Summary")}</h2>
         <%block name="course_about_important_dates">
         <ol class="important-dates">
           <li class="important-dates-item">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M12 3L1 9L5 11.18V17.18L12 21L19 17.18V11.18L21 10.09V17H23V9L12 3ZM18.8201 8.99997L12.0001 12.72L5.18007 8.99997L12.0001 5.27997L18.8201 8.99997ZM12 18.72L17 15.99V12.27L12 15L7 12.27V15.99L12 18.72Z" fill="#9CA3AF"/>
               </svg>
-            <p class="important-dates-item-title">${_("Course Number")}</p><span class="important-dates-item-text course-number">${course.display_number_with_default}</span></li>
+            <p class="important-dates-item-title">${_("Module Number")}</p><span class="important-dates-item-text course-number">${course.display_number_with_default}</span></li>
           % if not course.start_date_is_still_default:
               <%
                   course_start_date = course.advertised_start or course.start
@@ -224,7 +224,7 @@ from openedx.core.lib.courses import course_image_url
             ## Multiple pre-requisite courses are not supported on frontend that's why we are pulling first element
             <span class="important-dates-item-text pre-requisite"><a href="${prc_target}">${pre_requisite_courses[0]['display']}</a></span>
             <p class="tip">
-            ${Text(_("You must successfully complete {link_start}{prc_display}{link_end} before you begin this course.")).format(
+            ${Text(_("You must successfully complete {link_start}{prc_display}{link_end} before you begin this module.")).format(
               link_start=HTML('<a href="{}">').format(prc_target),
               link_end=HTML('</a>'),
               prc_display=pre_requisite_courses[0]['display'],
