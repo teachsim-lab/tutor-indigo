@@ -245,3 +245,19 @@ def _add_header(mfes):
         )
 
     return mfes
+
+
+@MFE_APPS.add()
+def _add_my_mfe(mfes):  # type: ignore[no-untyped-def]
+    mfes["learning"] = {
+        "repository": "https://github.com/teachsim-lab/frontend-app-learning.git",
+        "port": 2000,
+        "version": "teachsim/deploy",
+    }
+    mfes["learner-dashboard"] = {
+        "repository": "https://github.com/teachsim-lab/frontend-app-learner-dashboard.git",
+        "port": 1996,
+        "version": "teachsim/deploy2",
+    }
+
+    return mfes

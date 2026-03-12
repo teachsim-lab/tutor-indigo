@@ -93,3 +93,61 @@ urlpatterns += [
 ]
 
 EOF
+
+# Add user to learner home context and completion summary
+RUN git apply <<'EOF'
+diff --git a/lms/djangoapps/learner_home/serializers.py b/lms/djangoapps/learner_home/serializers.py
+--- a/lms/djangoapps/learner_home/serializers.py
++++ b/lms/djangoapps/learner_home/serializers.py
+@@ -15,6 +15,7 @@
+ from common.djangoapps.course_modes.models import CourseMode
+ from openedx.features.course_experience import course_home_url
+ from xmodule.data import CertificatesDisplayBehaviors
++from lms.djangoapps.courseware.courses import get_course_blocks_completion_summary
+ from lms.djangoapps.learner_home.utils import course_progress_url
+ 
+ 
+@@ -459,6 +460,7 @@ class LearnerEnrollmentSerializer(serializers.Serializer):
+     gradeData = GradeDataSerializer(source="*")
+     programs = serializers.SerializerMethodField()
+     credit = serializers.SerializerMethodField()
++    completionSummary = serializers.SerializerMethodField()
+ 
+     def get_entitlement(self, instance):
+         """
+@@ -491,6 +493,11 @@ def get_credit(self, instance):
+         else:
+             return CreditSerializer(credit_status).data
+ 
++    def get_completionSummary(self, instance):
++        """Get completion summary for the course"""
++        user = self.context.get("user")
++        return get_course_blocks_completion_summary(instance.course_id, user)
++
+ 
+ class UnfulfilledEntitlementSerializer(serializers.Serializer):
+     """
+@@ -533,6 +540,11 @@ class UnfulfilledEntitlementSerializer(serializers.Serializer):
+     certificate = LiteralField(None)
+     enrollment = LiteralField(STATIC_ENTITLEMENT_ENROLLMENT_DATA)
+     credit = LiteralField({})
++    completionSummary = LiteralField({
++        "complete_count": 0,
++        "incomplete_count": 0,
++        "locked_count": 0
++    })
+ 
+     def _get_course_overview(self, instance):
+         """Look up course provider from CourseOverview matching the pseudo session"""
+diff --git a/lms/djangoapps/learner_home/views.py b/lms/djangoapps/learner_home/views.py
+--- a/lms/djangoapps/learner_home/views.py
++++ b/lms/djangoapps/learner_home/views.py
+@@ -569,6 +569,7 @@ def _initialize(self, user, is_masquerade=False):
+             "unfulfilled_entitlement_pseudo_sessions": unfulfilled_entitlement_pseudo_sessions,
+             "pseudo_session_course_overviews": pseudo_session_course_overviews,
+             "programs": programs,
++            "user": user,
+         }
+ 
+         response_data = serialize_learner_home_data(learner_dash_data, context)
+EOF
