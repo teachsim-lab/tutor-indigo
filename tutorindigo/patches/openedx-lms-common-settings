@@ -1,0 +1,2 @@
+REGISTRATION_EXTRA_FIELDS["first_name"]="required"
+REGISTRATION_EXTRA_FIELDS["last_name"]="required"

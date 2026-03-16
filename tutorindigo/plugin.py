@@ -259,5 +259,10 @@ def _add_my_mfe(mfes):  # type: ignore[no-untyped-def]
         "port": 1996,
         "version": "teachsim/deploy2",
     }
+    mfes["authn"] = {
+        "repository": "https://github.com/teachsim-lab/frontend-app-authn.git",
+        "port": 1999,
+        "version": "teachsim/deploy",
+    }
 
     return mfes

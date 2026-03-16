@@ -152,3 +152,19 @@ diff --git a/lms/djangoapps/learner_home/views.py b/lms/djangoapps/learner_home/
  
          response_data = serialize_learner_home_data(learner_dash_data, context)
 EOF
+
+# Add first_name and last_name to user account creation
+RUN git apply <<'EOF'
+diff --git a/common/djangoapps/student/helpers.py b/common/djangoapps/student/helpers.py
+--- a/common/djangoapps/student/helpers.py
++++ b/common/djangoapps/student/helpers.py
+@@ -692,6 +692,8 @@ def do_create_account(form, custom_form=None):
+     user = User(
+         username=proposed_username,
+         email=form.cleaned_data["email"],
++        first_name=form.cleaned_data.get("first_name", ""),
++        last_name=form.cleaned_data.get("last_name", ""),
+         is_active=False
+     )
+     password = normalize_password(form.cleaned_data["password"])
+EOF
