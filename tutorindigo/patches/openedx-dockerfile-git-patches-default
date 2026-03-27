@@ -1,0 +1,2 @@
+# Pass - do nothing, allowing built-in security patches to handle CourseLimitedStaffRole fix
+# This avoids conflicts with teachsim repository while still addressing security issue
