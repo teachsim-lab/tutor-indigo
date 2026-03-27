@@ -264,5 +264,10 @@ def _add_my_mfe(mfes):  # type: ignore[no-untyped-def]
         "port": 1999,
         "version": "teachsim/deploy",
     }
+    mfes["authoring"] = {
+        "repository": "https://github.com/teachsim-lab/frontend-app-authoring.git",
+        "port": 2001,
+        "version": "teachsim/deploy",
+    }
 
     return mfes
