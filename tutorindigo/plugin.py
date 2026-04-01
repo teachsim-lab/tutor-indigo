@@ -252,7 +252,7 @@ def _add_my_mfe(mfes):  # type: ignore[no-untyped-def]
     mfes["learning"] = {
         "repository": "https://github.com/teachsim-lab/frontend-app-learning.git",
         "port": 2000,
-        "version": "teachsim/deploy",
+        "version": "teachsim/deploy2",
     }
     mfes["learner-dashboard"] = {
         "repository": "https://github.com/teachsim-lab/frontend-app-learner-dashboard.git",
@@ -267,7 +267,7 @@ def _add_my_mfe(mfes):  # type: ignore[no-untyped-def]
     mfes["authoring"] = {
         "repository": "https://github.com/teachsim-lab/frontend-app-authoring.git",
         "port": 2001,
-        "version": "teachsim/deploy",
+        "version": "teachsim/deploy1",
     }
 
     return mfes
