@@ -178,6 +178,24 @@ MFE_CONFIG['INDIGO_FOOTER_NAV_LINKS'] = {{ INDIGO_FOOTER_NAV_LINKS }}
 )
 
 
+# ontaskconfig plugin config
+hooks.Filters.ENV_PATCHES.add_item(
+    (
+        "openedx-lms-common-settings",
+        """
+OPEN_EDX_FILTERS_CONFIG = {
+    "org.openedx.learning.instructor.dashboard.render.started.v1": {
+        "fail_silently": False,
+        "pipeline": [
+            "platform_plugin_ontask.extensions.filters.AddInstructorOnTaskTab",
+        ],
+    },
+}
+""",
+    )
+)
+
+
 # Apply patches from tutor-indigo
 for path in glob(
     os.path.join(
