@@ -196,6 +196,19 @@ OPEN_EDX_FILTERS_CONFIG = {
 )
 
 
+hooks.Filters.CONFIG_DEFAULTS.add_item(("TEACHSIM_OPENAI_SECRET_KEY", ""))
+hooks.Filters.ENV_PATCHES.add_item(
+    (
+        "openedx-common-settings",
+        """
+{% if TEACHSIM_OPENAI_SECRET_KEY %}
+OPENAI_SECRET_KEY = {{ TEACHSIM_OPENAI_SECRET_KEY }}
+{% endif %}
+""",
+    )
+)
+
+
 # Apply patches from tutor-indigo
 for path in glob(
     os.path.join(
