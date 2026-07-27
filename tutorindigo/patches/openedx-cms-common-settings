@@ -1,0 +1,4 @@
+# TeachSim customization: enable the Rater Certification XBlock by default
+# in the Advanced Module List for every newly-created course, so course
+# teams don't have to add it manually in Studio's Advanced Settings.
+DEFAULT_ADVANCED_MODULES = {{ DEFAULT_ADVANCED_MODULES }}

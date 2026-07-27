@@ -1,0 +1,6 @@
+# Let LMS-hosted xblock "embed" views (e.g. video-rater-xblock's video
+# preview, xblocks/v2/<usage_key>/embed/<view>/) be framed from Studio's own
+# Unit editor, which nests an iframe pointing at the CMS backend
+# (container_embed) - that origin otherwise isn't in CORS_ORIGIN_WHITELIST, so
+# the LMS response's `Content-Security-Policy: frame-ancestors` blocks it.
+CORS_ORIGIN_WHITELIST.append("http://{{ CMS_HOST }}:8001")

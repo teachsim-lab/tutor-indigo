@@ -1,0 +1,5 @@
+# See openedx-lms-development-settings for why the CMS origin needs to be in
+# CORS_ORIGIN_WHITELIST: Studio's Unit editor nests an iframe pointing at the
+# CMS backend, which otherwise fails the frame-ancestors CSP check on
+# LMS-hosted xblock "embed" views.
+CORS_ORIGIN_WHITELIST.append("{% if ENABLE_HTTPS %}https{% else %}http{% endif %}://{{ CMS_HOST }}")

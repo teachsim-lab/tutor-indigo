@@ -41,6 +41,10 @@ config: t.Dict[str, t.Dict[str, t.Any]] = {
     "overrides": {},
 }
 
+hooks.Filters.MOUNTED_DIRECTORIES.add_items([
+    ("openedx", "video-rater-xblock"),
+])
+
 # Theme templates
 hooks.Filters.ENV_TEMPLATE_ROOTS.add_item(
     str(importlib_resources.files("tutorindigo") / "templates")
@@ -197,6 +201,7 @@ OPEN_EDX_FILTERS_CONFIG = {
 
 
 hooks.Filters.CONFIG_DEFAULTS.add_item(("TEACHSIM_OPENAI_SECRET_KEY", ""))
+hooks.Filters.CONFIG_DEFAULTS.add_item(("DEFAULT_ADVANCED_MODULES", ["video_rater_xblock"]))
 hooks.Filters.ENV_PATCHES.add_item(
     (
         "openedx-common-settings",
@@ -283,12 +288,12 @@ def _add_my_mfe(mfes):  # type: ignore[no-untyped-def]
     mfes["learning"] = {
         "repository": "https://github.com/teachsim-lab/frontend-app-learning.git",
         "port": 2000,
-        "version": "teachsim/deploy2",
+        "version": "teachsim/deploy3",
     }
     mfes["learner-dashboard"] = {
         "repository": "https://github.com/teachsim-lab/frontend-app-learner-dashboard.git",
         "port": 1996,
-        "version": "teachsim/deploy2",
+        "version": "teachsim/deploy3",
     }
     mfes["authn"] = {
         "repository": "https://github.com/teachsim-lab/frontend-app-authn.git",
@@ -298,7 +303,7 @@ def _add_my_mfe(mfes):  # type: ignore[no-untyped-def]
     mfes["authoring"] = {
         "repository": "https://github.com/teachsim-lab/frontend-app-authoring.git",
         "port": 2001,
-        "version": "teachsim/deploy1",
+        "version": "teachsim/deploy2",
     }
 
     return mfes
